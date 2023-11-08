@@ -46,17 +46,17 @@
                         text-muted
                         {% endif %}
                         
-                        " href="http://127.0.0.1:8000/course/{{course.slug}}?code={{video.video_id}}">{{video.serial_number}}. {{video.title|title}}<a>
+                        " href="/{{course.slug}}?code={{video.video_id}}">{{video.serial_number}}. {{video.title|title}}<a>
 
                             {% if video.is_preview %}
                                 <h6 class="card-subtitle mb-2 text-body-secondary">Free</h6>
                             {% else %}
                                 <h6 class="card-subtitle mb-2 text-body-secondary ">
 
-                                    {% if  is_purchased %}
-                                    Unlocked
-                                    {% else %}
+                                    {% if  ! is_purchased %}
+                  
                                     Unlock 
+              
                                     {% endif %}    
                                 </h6>
                             {% endif %}

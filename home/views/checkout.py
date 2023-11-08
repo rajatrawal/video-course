@@ -64,7 +64,7 @@ def get_amount(coupon_code,course):
     amount = int(mrp-(mrp*discount*0.01))
     try:
         coupon_obj = CouponCode.objects.get(code=coupon_code,course=course)
-        print('i am valild code')
+
         discount = coupon_obj.discount
         return int(amount-(amount*discount*0.01)),discount,True
     except Exception:

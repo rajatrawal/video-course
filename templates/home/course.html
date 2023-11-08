@@ -46,7 +46,7 @@
                         text-muted
                         {% endif %}
                         
-                        " href="/{{course.slug}}?code={{video.video_id}}">{{video.serial_number}}. {{video.title|title}}<a>
+                        " href="/course/{{course.slug}}?code={{video.video_id}}">{{video.serial_number}}. {{video.title|title}}<a>
 
                             {% if video.is_preview %}
                                 <h6 class="card-subtitle mb-2 text-body-secondary">Free</h6>
@@ -64,6 +64,7 @@
                             {% endif %}
 
                     </div>
+                    
                 </div>
 
                 {% endfor %}

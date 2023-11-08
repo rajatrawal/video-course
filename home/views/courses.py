@@ -16,7 +16,7 @@ def get_course(request,slug):  # sourcery skip: avoid-builtin-shadow
 
     video_number = video.serial_number
     id = video.video_id
-    print(id)
+
     next_video_id = return_video_id(Video.objects.filter(serial_number= video_number + 1,course=course))
     prev_video_id = return_video_id(Video.objects.filter(serial_number= video_number - 1,course=course))
     
@@ -33,7 +33,7 @@ def get_course(request,slug):  # sourcery skip: avoid-builtin-shadow
     #     return render(request,'home/course.html',params)
 
     params={'course':course,'id':id,'is_purchased':is_purchased,'next_video_id':next_video_id,'prev_video_id':prev_video_id}
-    print(params)
+
     return render(request,'home/course.html',params)
 
 def return_video_id(video):

@@ -24,11 +24,11 @@ def sign_in(request):  # sourcery skip: avoid-builtin-shadow
         password= request.POST.get('passwordInput')
         
         user = authenticate(request,username=email,password=password)
-        print(user)
+
         if user is not None:
             login(request,user)
             next =  request.GET.get('next')
-            print(next)
+
             if next is not None:
                 return redirect(next)
         

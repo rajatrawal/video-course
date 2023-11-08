@@ -1,0 +1,129 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'home/css/style.css' %} ">
+{% endblock css %}
+{% block body %}
+<div class="container-fluid">
+    <div>
+
+        <div class="row mt-3">
+            <div class="col-sm-9">
+                <div class="">
+                    <iframe width="100%" height="200px" id="videoPlayer" src="https://www.youtube.com/embed/{{id}}"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
+                <div class="d-flex justify-content-between mt-3 mb-3">
+                    <a class="btn btn-primary        
+                    {% if not prev_video_id %}
+                    disabled
+                    {% endif %}" href="/course/{{course.slug}}?id={{prev_video_id}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                        </svg>
+                        Previous
+                    </a>
+                    <a class="btn btn-primary
+                    {% if not next_video_id %}
+                    disabled
+                    {% endif %}" href="/course/{{course.slug}}?id={{next_video_id}}"
+                    >Next
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                          </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-3 overflow-y-scroll" id='videosDiv' >
+                {% for video in course.videos.all %}
+
+                <div class="card mb-2 {% if id == video.video_id %}my_active {% endif %}">
+                    <div class="card-body">
+                        <a class="card-title h5 my_link
+                        {% if not video.is_preview and not is_purchased%}
+                        text-muted
+                        {% endif %}
+                        
+                        " href="http://127.0.0.1:8000/course/{{course.slug}}?code={{video.video_id}}">{{video.serial_number}}. {{video.title|title}}<a>
+
+                            {% if video.is_preview %}
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Free</h6>
+                            {% else %}
+                                <h6 class="card-subtitle mb-2 text-body-secondary ">
+
+                                    {% if  is_purchased %}
+                                    Unlocked
+                                    {% else %}
+                                    Unlock 
+                                    {% endif %}    
+                                </h6>
+                            {% endif %}
+
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body">
+                <div class="mt-4">
+                    <h2>{{course.name}}</h2>
+                </div>
+                <div class="info_div">
+                    <div class="fw-bold">{{course.date|timesince}} ago</div>
+                </div>
+                <div class="desc">
+                    {{course.description}}
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="h5  mb-4">Prerequisites</div>
+                <ul class="list-group">
+                    {% for prerequisite in course.prerequisites.all %}
+                    <li class="list-group-item">{{prerequisite.discription|title}}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="h5  mb-4">What you will learn in this course</div>
+                <ul class="list-group">
+                    {% for learnings in course.learnings.all %}
+                    <li class="list-group-item">{{learnings.discription|title}}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{% endblock body %}
+
+{% block js %}
+<script src="{% static 'home/js/script.js' %}"></script>
+{% endblock js %}
+
+<div class="display-6">{{course.name}}</div>
+<div class="display-6">{{course.price}}</div>
+<div class="display-6">{{course.description}}</div>
+<div class="display-6">{{course.discount}}</div>
+<div class="display-6">{{course.thumbnail}}</div>
+<div class="display-6">{{course.date}}</div>
+<div class="display-6">{{course.resource}}</div>
+<div class="display-6">{{course.length}}</div>
+<div class="display-6">{{course.tags.all}}</div>
+<div class="display-6">{{course.prerequisites.all}}</div>
+<div class="display-6">{{course.learnings.all}}</div>
+<div class="display-6">{{course.videos.all}}</div>

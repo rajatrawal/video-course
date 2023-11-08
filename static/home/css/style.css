@@ -1,0 +1,22 @@
+.my_link {
+    text-decoration: none;
+    color: black;
+}
+
+.card{
+    transition: all .3s ease-in-out;
+}
+.overflow-y-scroll .card:hover{
+    background-color: #dee2e6;
+}
+.my_link:hover{
+    transition: all .3s ease-in-out;
+    text-decoration: underline;
+}
+.my_active{
+    background: #dee2e6;
+    
+}
+.is_purchased{
+    color: gray;
+}

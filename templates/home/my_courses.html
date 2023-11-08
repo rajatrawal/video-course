@@ -1,0 +1,51 @@
+{% extends 'home/base.html' %}
+{% load coustom_tags %}
+
+{% block title %}
+Bhataji.com
+{% endblock title %}
+
+{% block css %}
+<style>
+  .btn-block {
+    display: block;
+    border-radius: 0;
+
+  }
+</style>
+{% endblock css %}
+
+{% block body %}
+<div class="container-fluid mt-4">
+  <h1>My Courses</h1>
+  <div class="mt-4 mb-4 d-flex justify-content-around flex-wrap">
+    {% for course in courses %}
+    <div class="card" style="width: 22rem;">
+      <img src="{{course.thumbnail.url}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{course.name}}</h5>
+
+        <div class="fw-bold"> {{course.length}} hours</div>
+        <p class="card-text p-0">{{course.description}}</p>
+
+      </div>
+      <div class='card-footer p-0'>
+
+          <a href="/course/{{course.slug}}" class="btn btn-info btn-lg btn-block">
+            Watch Now
+          </a>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+
+
+
+{% endblock body %}
+
+{% block js %}
+
+{% endblock js %}

@@ -1,0 +1,38 @@
+{% extends 'home/base.html' %}
+{% block css %}
+<style>
+.mainDiv{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+}
+</style>
+{% endblock css %}
+{% block body %}
+<div class="container">
+    <div class="mainDiv">
+        <form action="" method="post"> {% csrf_token %}
+            <div class="input-group mb-3">
+                <span class="input-group-text">@</span>
+                <div class="form-floating">
+                  <input type="email" class="form-control" id="emailInput" placeholder="Email" name="emailInput">
+                  <label for="emailInput">Email</label>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">*</span>
+                <div class="form-floating">
+                  <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="passwordInput">
+                  <label for="passwordInput">Password</label>
+                </div>
+            </div>
+       
+            <div class="d-grid"><button class="btn btn-primary" type="submit" >
+                Sign Up
+            </button></div>
+        </form>
+    </div>
+</div>
+{% endblock body %}

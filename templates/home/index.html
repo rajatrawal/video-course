@@ -1,0 +1,70 @@
+{% extends 'home/base.html' %}
+{% load coustom_tags %}
+
+{% block title %}
+Bhataji.com
+{% endblock title %}
+
+{% block css %}
+<style>
+  .btn-block {
+    display: block;
+    border-radius: 0;
+
+  }
+</style>
+{% endblock css %}
+
+{% block body %}
+<div class="container-fluid mt-4">
+  {% if query %}
+  <h5 class="p-3">Search result for "{{query}}"</h5>
+  {% endif %}
+  <h1 class="p-3">Courses</h1>
+  <div class="mt-4 mb-4 d-flex justify-content-around flex-wrap">
+    {% for course in courses %}
+    <div class="card" style="width: 22rem;">
+      <img src="{{course.thumbnail.url}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{course.name}}</h5>
+        <div class="text-success"><span class="h5">
+            <span class="text-decoration-line-through">
+              {{ course.price|rupee }}</span> {% cal_saleprice course.price course.discount as sale%}
+            &nbsp;
+            <span>{{sale|rupee}}</span>
+          </span>
+          &nbsp; Save {{course.discount}}%
+        </div>
+        <div class="fw-bold"> {{course.length}} hours</div>
+        <p class="card-text p-0">{{course.description}}</p>
+
+      </div>
+      {% is_included course request.user as is_course_included %}
+      <div class='card-footer p-0'>
+        {% if not is_course_included %}
+
+        <div class="row no-gutters">
+          <div class='col'>
+            <a href="/checkout/{{course.slug}}" class=' btn btn-light btn-block border-right-1'>Enroll Now</a>
+          </div>
+          <div class='col'>
+            <a href="/course/{{course.slug}}?id={{course.videos.first.video_id}}" class=' btn btn-light btn-block'>See More</a>
+          </div>
+        </div>
+        {% else %}
+        <a href="/course/{{course.slug}}" class="btn btn-info btn-block btn-lg">Resume Learning</a>
+        {% endif %}
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+{% endblock body %}
+
+{% block js %}
+
+{% endblock js %}

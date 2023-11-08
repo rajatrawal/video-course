@@ -85,13 +85,14 @@ def verify_payment(request):
         razorpay_signature= request.POST.get('razorpay_signature')
         client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
 
-        if response := client.utility.verify_payment_signature(
+        response = client.utility.verify_payment_signature(
             {
                 'razorpay_order_id': razorpay_order_id,
                 'razorpay_payment_id': razorpay_payment_id,
                 'razorpay_signature': razorpay_signature,
             }
-        ):
+        )
+        if response:
             try:
                 payment = Payment.objects.get(order_id=razorpay_order_id)
                 payment.payment_id = razorpay_payment_id

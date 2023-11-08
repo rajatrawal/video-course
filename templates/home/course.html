@@ -53,9 +53,11 @@
                             {% else %}
                                 <h6 class="card-subtitle mb-2 text-body-secondary ">
 
-                                    {% if  ! is_purchased %}
+                                    {% if is_purchased %}
                   
-                                    Unlock 
+                                    {% else %}
+                                    Unlock
+
               
                                     {% endif %}    
                                 </h6>
